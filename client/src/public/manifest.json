@@ -1,0 +1,17 @@
+{
+  "name": "NeuroFlow - Cognitive Healthcare Support",
+  "short_name": "NeuroFlow",
+  "description": "AI-powered support system for neurodivergent individuals",
+  "theme_color": "#0ea5e9",
+  "background_color": "#f8fafc",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "vite.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    }
+  ]
+}
