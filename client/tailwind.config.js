@@ -16,6 +16,8 @@ export default {
         surface: 'var(--color-surface)',
         'text-primary': 'var(--color-text)',
         'text-secondary': 'var(--color-text-secondary)',
+        border: 'var(--color-border)',
+        hover: 'var(--color-hover)',
         
         // Keep some static colors for specific use cases
         emotion: {
@@ -28,13 +30,31 @@ export default {
           error: '#fecaca',
           success: '#bbf7d0',
         },
-        
-        // Utility colors
-        border: 'rgba(0, 0, 0, 0.1)',
       },
       fontFamily: {
+        'theme': 'var(--font-family)',
         inter: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         poppins: ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      },
+      fontSize: {
+        'theme-xs': ['calc(var(--font-size-base) * 0.75)', { lineHeight: 'var(--line-height)' }],
+        'theme-sm': ['calc(var(--font-size-base) * 0.875)', { lineHeight: 'var(--line-height)' }],
+        'theme-base': ['var(--font-size-base)', { lineHeight: 'var(--line-height)' }],
+        'theme-lg': ['calc(var(--font-size-base) * 1.125)', { lineHeight: 'var(--line-height)' }],
+        'theme-xl': ['calc(var(--font-size-base) * 1.25)', { lineHeight: 'var(--line-height)' }],
+        'theme-2xl': ['calc(var(--font-size-base) * 1.5)', { lineHeight: 'var(--line-height)' }],
+        'theme-3xl': ['calc(var(--font-size-base) * 1.875)', { lineHeight: 'var(--line-height)' }],
+        'theme-4xl': ['calc(var(--font-size-base) * 2.25)', { lineHeight: 'var(--line-height)' }],
+      },
+      borderRadius: {
+        'theme': 'var(--border-radius)',
+      },
+      spacing: {
+        'theme-xs': 'var(--spacing-xs)',
+        'theme-sm': 'var(--spacing-sm)', 
+        'theme-md': 'var(--spacing-md)',
+        'theme-lg': 'var(--spacing-lg)',
+        'theme-xl': 'var(--spacing-xl)',
       },
       animation: {
         'gentle-fade-in': 'gentleFadeIn 0.25s ease-out',

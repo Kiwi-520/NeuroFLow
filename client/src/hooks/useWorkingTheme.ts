@@ -3,6 +3,19 @@ import { persist } from 'zustand/middleware';
 
 // Research-backed color palettes for neurodivergent users
 export const COLOR_PALETTES = {
+  // Default: Pleasant pastel green theme - cool and calming
+  'pastel-green-default': {
+    name: 'Pastel Green',
+    description: 'Cool and pleasant pastel green theme for relaxation',
+    primary: '#4ADE80', // Soft green
+    secondary: '#22D3EE', // Light cyan
+    accent: '#A78BFA', // Soft purple
+    background: '#F0FDF4', // Very light green background
+    surface: '#FFFFFF',
+    text: '#064E3B', // Dark green text
+    textSecondary: '#059669', // Medium green
+  },
+  
   // Autism-friendly: Low sensory load, muted tones
   'autism-calm': {
     name: 'Autism Calm',
@@ -150,12 +163,13 @@ export interface ThemeState {
   setAutoplayDisabled: (disabled: boolean) => void;
   applyPreset: (preset: 'autism-friendly' | 'adhd-focused' | 'dyslexia-optimized' | 'sensory-minimal') => void;
   resetToDefaults: () => void;
+  emergencyReset: () => void;
   exportSettings: () => string;
   importSettings: (settings: string) => void;
 }
 
 const defaultTheme: Omit<ThemeState, keyof ThemeActions> = {
-  colorPalette: 'ocean-calm',
+  colorPalette: 'pastel-green-default',
   darkMode: false,
   reducedMotion: false,
   highContrast: false,
@@ -188,6 +202,7 @@ type ThemeActions = {
   setAutoplayDisabled: (disabled: boolean) => void;
   applyPreset: (preset: 'autism-friendly' | 'adhd-focused' | 'dyslexia-optimized' | 'sensory-minimal') => void;
   resetToDefaults: () => void;
+  emergencyReset: () => void;
   exportSettings: () => string;
   importSettings: (settings: string) => void;
 };
@@ -225,7 +240,6 @@ export const useThemeStore = create<ThemeState>()(
           },
           'adhd-focused': {
             colorPalette: 'adhd-focus' as keyof typeof COLOR_PALETTES,
-            highContrast: true,
             fontSize: 1.1,
             spacing: 1,
             cornerRadius: 6,
@@ -254,6 +268,20 @@ export const useThemeStore = create<ThemeState>()(
       
       resetToDefaults: () => set(defaultTheme),
       
+      emergencyReset: () => {
+        // Clear localStorage and reset to defaults
+        localStorage.removeItem('neuroflow-theme');
+        // Force set safe defaults immediately
+        set({
+          ...defaultTheme,
+          highContrast: false,
+          darkMode: false,
+          colorPalette: 'pastel-green-default'
+        });
+        // Force page reload to clear any cached state
+        setTimeout(() => window.location.reload(), 100);
+      },
+      
       exportSettings: () => {
         const state = get();
         const { exportSettings, importSettings, applyPreset, resetToDefaults, ...settings } = state;
@@ -272,6 +300,15 @@ export const useThemeStore = create<ThemeState>()(
     {
       name: 'neuroflow-theme',
       version: 1,
+      // Ensure we always start with proper defaults
+      merge: (persistedState, currentState) => {
+        // If no persisted state exists, use our defaults
+        if (!persistedState) {
+          return { ...defaultTheme, ...currentState };
+        }
+        // Merge persisted state with defaults to handle missing properties
+        return { ...defaultTheme, ...persistedState, ...currentState };
+      },
     }
   )
 );
@@ -287,20 +324,28 @@ export const generateCSSVariables = (state: ThemeState) => {
   };
   
   return {
-    '--color-primary': palette.primary,
-    '--color-secondary': palette.secondary,
-    '--color-accent': palette.accent,
-    '--color-background': state.darkMode ? '#0F172A' : palette.background,
-    '--color-surface': state.darkMode ? '#1E293B' : palette.surface,
-    '--color-text': state.darkMode ? '#F8FAFC' : palette.text,
-    '--color-text-secondary': state.darkMode ? '#CBD5E1' : palette.textSecondary,
+    '--color-primary': state.highContrast ? '#000000' : palette.primary,
+    '--color-secondary': state.highContrast ? '#333333' : palette.secondary,
+    '--color-accent': state.highContrast ? '#666666' : palette.accent,
+    '--color-background': state.darkMode ? '#0F172A' : (state.highContrast ? '#FFFFFF' : palette.background),
+    '--color-surface': state.darkMode ? '#1E293B' : (state.highContrast ? '#FFFFFF' : palette.surface),
+    '--color-text': state.darkMode ? '#F8FAFC' : (state.highContrast ? '#000000' : palette.text),
+    '--color-text-secondary': state.darkMode ? '#CBD5E1' : (state.highContrast ? '#333333' : palette.textSecondary),
+    '--color-border': state.darkMode ? '#374151' : (state.highContrast ? '#000000' : 'rgba(0, 0, 0, 0.1)'),
+    '--color-hover': state.darkMode ? '#374151' : (state.highContrast ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)'),
     '--font-size-base': `${state.fontSize}rem`,
     '--font-family': fontFamilies[state.fontFamily],
     '--line-height': state.lineHeight.toString(),
     '--letter-spacing': `${state.letterSpacing}px`,
     '--border-radius': `${state.cornerRadius}px`,
     '--spacing-unit': `${state.spacing}rem`,
+    '--spacing-xs': `${state.spacing * 0.25}rem`,
+    '--spacing-sm': `${state.spacing * 0.5}rem`,
+    '--spacing-md': `${state.spacing}rem`,
+    '--spacing-lg': `${state.spacing * 1.5}rem`,
+    '--spacing-xl': `${state.spacing * 2}rem`,
     '--focus-ring-width': state.focusRingVisible ? '2px' : '0px',
     '--animation-duration': state.reducedMotion ? '0.01ms' : '200ms',
+    '--transition-duration': state.reducedMotion ? '0.01ms' : '150ms',
   };
 };

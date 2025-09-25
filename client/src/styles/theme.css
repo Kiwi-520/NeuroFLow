@@ -1,13 +1,15 @@
 /* Base theme variables and utilities */
 :root {
-  /* Default color palette - will be overridden by theme provider */
-  --color-primary: #0EA5E9;
-  --color-secondary: #06B6D4;
-  --color-accent: #10B981;
-  --color-background: #F0F9FF;
+  /* Default color palette - Pleasant pastel green theme */
+  --color-primary: #4ADE80;
+  --color-secondary: #22D3EE;
+  --color-accent: #A78BFA;
+  --color-background: #F0FDF4;
   --color-surface: #FFFFFF;
-  --color-text: #0C4A6E;
-  --color-text-secondary: #0369A1;
+  --color-text: #064E3B;
+  --color-text-secondary: #059669;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-hover: rgba(0, 0, 0, 0.05);
   
   /* Typography */
   --font-size-base: 1rem;
@@ -30,22 +32,80 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-/* Base styles */
+/* Base styles - Apply theme variables globally */
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height);
-  letter-spacing: var(--letter-spacing);
-  color: var(--color-text);
-  background-color: var(--color-background);
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  line-height: var(--line-height) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  color: var(--color-text) !important;
+  background-color: var(--color-background) !important;
   margin: 0;
   padding: 0;
   transition: all var(--transition-duration) ease-in-out;
 }
+
+/* Apply theme to all text elements with high specificity */
+body *, body *::before, body *::after {
+  font-family: var(--font-family) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  transition: all var(--transition-duration) ease-in-out !important;
+}
+
+/* Typography scale that respects base font size with higher specificity */
+body h1, body .text-3xl { font-size: calc(var(--font-size-base) * 2.25) !important; line-height: var(--line-height) !important; }
+body h2, body .text-2xl { font-size: calc(var(--font-size-base) * 1.875) !important; line-height: var(--line-height) !important; }
+body h3, body .text-xl { font-size: calc(var(--font-size-base) * 1.5) !important; line-height: var(--line-height) !important; }
+body h4, body .text-lg { font-size: calc(var(--font-size-base) * 1.25) !important; line-height: var(--line-height) !important; }
+body h5, body .text-base { font-size: var(--font-size-base) !important; line-height: var(--line-height) !important; }
+body h6, body .text-sm { font-size: calc(var(--font-size-base) * 0.875) !important; line-height: var(--line-height) !important; }
+body p, body span, body div, body a, body label { 
+  font-size: var(--font-size-base) !important; 
+  line-height: var(--line-height) !important; 
+}
+
+/* Apply border radius to all rounded elements with higher specificity */
+body .rounded, body .rounded-md, body .rounded-lg, body .rounded-xl, body .rounded-2xl, body .rounded-3xl,
+body button, body input, body textarea, body select {
+  border-radius: var(--border-radius) !important;
+}
+
+/* Button styles that use theme variables with higher specificity */
+body button, body .btn {
+  border-radius: var(--border-radius) !important;
+  transition: all var(--transition-duration) ease-in-out !important;
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  line-height: var(--line-height) !important;
+}
+
+/* Input styles with higher specificity */
+body input, body textarea, body select {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  line-height: var(--line-height) !important;
+  border-radius: var(--border-radius) !important;
+  transition: all var(--transition-duration) ease-in-out !important;
+}
+
+/* Spacing utilities that scale with the spacing multiplier */
+body .p-1, body .p-2, body .p-3, body .p-4, body .p-5, body .p-6, body .p-8 {
+  padding: calc(var(--spacing-unit) * 0.5) !important;
+}
+body .m-1, body .m-2, body .m-3, body .m-4, body .m-5, body .m-6, body .m-8 {
+  margin: calc(var(--spacing-unit) * 0.5) !important;
+}
+body .gap-1, body .gap-2, body .gap-3, body .gap-4, body .gap-6, body .gap-8 {
+  gap: calc(var(--spacing-unit) * 0.5) !important;
+}
+
+/* Theme utility classes */
 
 /* Theme-aware components */
 .theme-surface {
@@ -247,6 +307,68 @@ body {
 /* Animation utilities */
 .animate-fade-in {
   animation: fadeIn var(--animation-duration) ease-in-out;
+}
+
+/* Global theme application utilities */
+.theme-bg { background-color: var(--color-background) !important; }
+.theme-surface { background-color: var(--color-surface) !important; }
+.theme-text { color: var(--color-text) !important; }
+.theme-text-secondary { color: var(--color-text-secondary) !important; }
+.theme-border { border-color: var(--color-border) !important; }
+.theme-radius { border-radius: var(--border-radius) !important; }
+.theme-font { font-family: var(--font-family) !important; }
+.theme-spacing { padding: calc(var(--spacing-unit) * 0.5) !important; }
+
+/* Force theme application to override Tailwind */
+.force-theme-font * {
+  font-family: var(--font-family) !important;
+  font-size: inherit !important;
+  line-height: var(--line-height) !important;
+  letter-spacing: var(--letter-spacing) !important;
+}
+
+.force-theme-spacing * {
+  padding: calc(var(--spacing-unit) * 0.5) !important;
+  margin: calc(var(--spacing-unit) * 0.25) !important;
+}
+
+.force-theme-radius * {
+  border-radius: var(--border-radius) !important;
+}
+
+/* Ensure all buttons, inputs, and interactive elements use theme */
+button, .btn {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  line-height: var(--line-height) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  border-radius: var(--border-radius) !important;
+  padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1) !important;
+  transition: all var(--transition-duration) ease-in-out !important;
+}
+
+input, textarea, select {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  line-height: var(--line-height) !important;
+  letter-spacing: var(--letter-spacing) !important;
+  border-radius: var(--border-radius) !important;
+  padding: calc(var(--spacing-unit) * 0.5) !important;
+}
+
+/* Navigation and layout elements */
+nav, header, footer, main, section, article, aside {
+  font-family: var(--font-family) !important;
+  font-size: var(--font-size-base) !important;
+  line-height: var(--line-height) !important;
+  letter-spacing: var(--letter-spacing) !important;
+}
+
+/* Cards and containers */
+.card, .container, .wrapper {
+  border-radius: var(--border-radius) !important;
+  padding: calc(var(--spacing-unit) * 1) !important;
+  margin: calc(var(--spacing-unit) * 0.5) !important;
 }
 
 .animate-slide-up {

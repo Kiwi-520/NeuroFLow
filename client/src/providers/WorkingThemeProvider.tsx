@@ -14,22 +14,24 @@ export const WorkingThemeProvider: React.FC<ThemeProviderProps> = ({ children })
     const cssVariables = generateCSSVariables(themeState);
     
     Object.entries(cssVariables).forEach(([property, value]) => {
-      root.style.setProperty(property, value);
+      root.style.setProperty(property, value as string);
     });
 
-    // Apply font family to body
-    document.body.style.fontFamily = `var(--font-family)`;
-    document.body.style.fontSize = `var(--font-size-base)`;
-    document.body.style.lineHeight = `var(--line-height)`;
-    document.body.style.letterSpacing = `var(--letter-spacing)`;
-
-    // Apply theme classes to body
+    // Apply global theme styles to body
     const body = document.body;
     
-    // Remove all theme classes first
+    // Apply font styles with !important to ensure they override everything
+    body.style.setProperty('font-family', cssVariables['--font-family'] as string, 'important');
+    body.style.setProperty('font-size', cssVariables['--font-size-base'] as string, 'important');
+    body.style.setProperty('line-height', cssVariables['--line-height'] as string, 'important');
+    body.style.setProperty('letter-spacing', cssVariables['--letter-spacing'] as string, 'important');
+    body.style.setProperty('color', cssVariables['--color-text'] as string, 'important');
+    body.style.setProperty('background-color', cssVariables['--color-background'] as string, 'important');
+
+    // Apply theme classes to body
     body.classList.remove(
       'dark-mode',
-      'high-contrast',
+      'high-contrast', 
       'reduced-motion',
       'no-focus-ring',
       'sound-enabled',
@@ -49,17 +51,13 @@ export const WorkingThemeProvider: React.FC<ThemeProviderProps> = ({ children })
     // Set color scheme for better OS integration
     root.style.colorScheme = themeState.darkMode ? 'dark' : 'light';
 
-    // Apply high contrast if enabled
-    if (themeState.highContrast) {
-      root.style.setProperty('--color-text', '#000000');
-      root.style.setProperty('--color-background', '#FFFFFF');
-      root.style.setProperty('--color-surface', '#F3F4F6');
-    }
-
     // Handle reduced motion preference
     if (themeState.reducedMotion) {
       root.style.setProperty('--animation-duration', '0.01ms');
       root.style.setProperty('--transition-duration', '0.01ms');
+    } else {
+      root.style.setProperty('--animation-duration', '200ms');
+      root.style.setProperty('--transition-duration', '150ms');
     }
 
     // Add meta tag for mobile browsers
@@ -69,7 +67,7 @@ export const WorkingThemeProvider: React.FC<ThemeProviderProps> = ({ children })
       metaThemeColor.setAttribute('name', 'theme-color');
       document.head.appendChild(metaThemeColor);
     }
-    metaThemeColor.setAttribute('content', cssVariables['--color-primary']);
+    metaThemeColor.setAttribute('content', cssVariables['--color-primary'] as string);
 
   }, [themeState]);
 
