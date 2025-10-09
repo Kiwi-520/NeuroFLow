@@ -1,17 +1,18 @@
-import React from 'react';
-import { useThemeStore } from '../hooks/useWorkingTheme';
-import { 
-  Home, 
-  CheckSquare, 
-  BarChart3, 
-  Settings, 
-  Moon, 
+import React from "react";
+import { useThemeStore } from "../hooks/useWorkingTheme";
+import {
+  Home,
+  CheckSquare,
+  BarChart3,
+  Settings,
+  Moon,
   Sun,
   Brain,
   Heart,
-  Zap
-} from 'lucide-react';
-import { useLocation, Link } from 'react-router-dom';
+  Zap,
+  Smile,
+} from "lucide-react";
+import { useLocation, Link } from "react-router-dom";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,13 +23,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
 
   const navItems = [
-    { icon: Home, label: 'Dashboard', path: '/dashboard' },
-    { icon: CheckSquare, label: 'Tasks', path: '/tasks' },
-    { icon: BarChart3, label: 'Insights', path: '/insights' },
-    { icon: Settings, label: 'Customize UI', path: '/settings' },
+    { icon: Home, label: "Dashboard", path: "/dashboard" },
+    { icon: CheckSquare, label: "Tasks", path: "/tasks" },
+    { icon: Brain, label: "Emotion Analysis", path: "/emotion-analysis" },
+    { icon: BarChart3, label: "Insights", path: "/insights" },
+    { icon: Settings, label: "Customize UI", path: "/settings" },
   ];
 
-  const isActive = (path: string) => location.pathname === path || (path === '/dashboard' && location.pathname === '/');
+  const isActive = (path: string) =>
+    location.pathname === path ||
+    (path === "/dashboard" && location.pathname === "/");
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
@@ -60,8 +64,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     to={item.path}
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
                       isActive(item.path)
-                        ? 'bg-primary/10 text-primary border border-primary/20'
-                        : 'text-text-secondary hover:bg-surface hover:text-text-primary border border-transparent'
+                        ? "bg-primary/10 text-primary border border-primary/20"
+                        : "text-text-secondary hover:bg-surface hover:text-text-primary border border-transparent"
                     }`}
                   >
                     <Icon size={18} />
@@ -102,9 +106,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 key={item.path}
                 to={item.path}
                 className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-all duration-200 ${
-                  isActive(item.path)
-                    ? 'text-primary'
-                    : 'text-text-secondary'
+                  isActive(item.path) ? "text-primary" : "text-text-secondary"
                 }`}
               >
                 <Icon size={20} />
