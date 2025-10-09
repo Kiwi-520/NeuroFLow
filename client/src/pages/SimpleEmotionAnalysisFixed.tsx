@@ -23,6 +23,13 @@ interface EmotionResult {
   emotion_probabilities: Record<string, number>;
   face_detected?: boolean;
   face_coordinates?: number[] | null;
+  analysis_features?: {
+    brightness: number;
+    color_temperature: number;
+    saturation: number;
+    edge_intensity: number;
+    texture_variance: number;
+  };
   error?: string;
 }
 
@@ -130,18 +137,41 @@ const SimpleEmotionAnalysis: React.FC = () => {
 
   // Capture and analyze webcam frame
   const analyzeWebcamFrame = async () => {
-    if (!videoRef.current || !canvasRef.current) return;
+    if (!videoRef.current || !canvasRef.current) {
+      toast.error("Webcam not properly initialized");
+      return;
+    }
 
+    const video = videoRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
+    if (!context) {
+      toast.error("Canvas context not available");
+      return;
+    }
 
-    context?.drawImage(videoRef.current, 0, 0);
+    // Check if video is ready
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+      toast.error("Video not ready. Please wait for webcam to initialize.");
+      return;
+    }
 
-    // Convert to base64
-    const imageData = canvas.toDataURL("image/jpeg", 0.8);
+    // Set canvas dimensions to match video
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    // Draw current video frame to canvas
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert to high-quality base64 image
+    const imageData = canvas.toDataURL("image/jpeg", 0.9);
+
+    // Validate image data
+    if (!imageData || imageData === "data:,") {
+      toast.error("Failed to capture image from webcam");
+      return;
+    }
 
     setIsAnalyzing(true);
     try {
@@ -157,24 +187,41 @@ const SimpleEmotionAnalysis: React.FC = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Server error (${response.status}): ${errorText}`);
       }
 
       const result = await response.json();
+
+      // Validate result structure
+      if (!result.predicted_emotion || !result.emotion_probabilities) {
+        throw new Error("Invalid response format from server");
+      }
+
       setWebcamResult(result);
 
       if (result.face_detected) {
-        toast.success(`Face detected! Emotion: ${result.predicted_emotion}`);
+        toast.success(
+          `${
+            result.predicted_emotion.charAt(0).toUpperCase() +
+            result.predicted_emotion.slice(1)
+          } detected! 
+          Confidence: ${(result.confidence * 100).toFixed(1)}%`
+        );
       } else {
-        toast.error(
-          "No face detected. Please position your face in the camera."
+        toast(
+          "Analysis completed but no clear face pattern detected. Try adjusting lighting or position.",
+          {
+            icon: "⚠️",
+            duration: 4000,
+          }
         );
       }
     } catch (error) {
       console.error("Error analyzing webcam:", error);
-      toast.error(
-        "Failed to analyze face emotion. Make sure the server is running."
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
+      toast.error(`Analysis failed: ${errorMessage}`);
     } finally {
       setIsAnalyzing(false);
     }
@@ -391,6 +438,58 @@ const SimpleEmotionAnalysis: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Advanced Analysis Features (for webcam) */}
+        {result.analysis_features && (
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-text-primary mb-4 flex items-center space-x-2">
+              <Brain className="w-5 h-5 text-purple-500" />
+              <span>Advanced Image Analysis</span>
+            </h4>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="bg-background rounded-lg p-3 border border-border">
+                <div className="text-sm font-medium text-text-secondary mb-1">
+                  Brightness
+                </div>
+                <div className="text-lg font-bold text-text-primary">
+                  {result.analysis_features.brightness}
+                </div>
+              </div>
+              <div className="bg-background rounded-lg p-3 border border-border">
+                <div className="text-sm font-medium text-text-secondary mb-1">
+                  Color Temp
+                </div>
+                <div className="text-lg font-bold text-text-primary">
+                  {result.analysis_features.color_temperature.toFixed(3)}
+                </div>
+              </div>
+              <div className="bg-background rounded-lg p-3 border border-border">
+                <div className="text-sm font-medium text-text-secondary mb-1">
+                  Saturation
+                </div>
+                <div className="text-lg font-bold text-text-primary">
+                  {(result.analysis_features.saturation * 100).toFixed(1)}%
+                </div>
+              </div>
+              <div className="bg-background rounded-lg p-3 border border-border">
+                <div className="text-sm font-medium text-text-secondary mb-1">
+                  Edge Intensity
+                </div>
+                <div className="text-lg font-bold text-text-primary">
+                  {result.analysis_features.edge_intensity.toFixed(1)}
+                </div>
+              </div>
+              <div className="bg-background rounded-lg p-3 border border-border">
+                <div className="text-sm font-medium text-text-secondary mb-1">
+                  Texture
+                </div>
+                <div className="text-lg font-bold text-text-primary">
+                  {result.analysis_features.texture_variance.toFixed(0)}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Face detection info for webcam */}
         {result.face_detected !== undefined && (

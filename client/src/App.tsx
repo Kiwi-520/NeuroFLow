@@ -5,7 +5,7 @@ import { WorkingThemeProvider } from "./providers/WorkingThemeProvider";
 import { Layout } from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
-import SimpleEmotionAnalysis from "./pages/SimpleEmotionAnalysisFixed";
+import EmotionAnalysis from "./pages/EmotionAnalysis";
 import Insights from "./pages/Insights";
 import Settings from "./pages/Settings";
 import Welcome from "./pages/Welcome";
@@ -41,7 +41,7 @@ function App() {
                   <Route path="/tasks" element={<Tasks />} />
                   <Route
                     path="/emotion-analysis"
-                    element={<SimpleEmotionAnalysis />}
+                    element={<EmotionAnalysis />}
                   />
                   <Route path="/insights" element={<Insights />} />
                   <Route path="/settings" element={<Settings />} />
