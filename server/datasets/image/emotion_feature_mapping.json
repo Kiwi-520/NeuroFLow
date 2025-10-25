@@ -1,0 +1,455 @@
+{
+  "happy": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "yellow",
+          "orange",
+          "light_blue"
+        ],
+        "brightness": "high",
+        "saturation": "high"
+      },
+      {
+        "dominant_colors": [
+          "warm_white",
+          "gold",
+          "pink"
+        ],
+        "brightness": "very_high",
+        "saturation": "medium"
+      },
+      {
+        "dominant_colors": [
+          "green",
+          "yellow_green"
+        ],
+        "brightness": "high",
+        "saturation": "medium"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        180,
+        255
+      ],
+      "saturation_range": [
+        0.4,
+        1.0
+      ],
+      "contrast_range": [
+        1.2,
+        2.0
+      ],
+      "edge_intensity_range": [
+        30,
+        80
+      ],
+      "texture_variance_range": [
+        1000,
+        4000
+      ]
+    },
+    "facial_indicators": [
+      "smile_detected",
+      "bright_eyes",
+      "relaxed_features",
+      "upward_mouth_curve"
+    ],
+    "scene_contexts": [
+      "outdoor_sunny",
+      "celebration",
+      "nature_bright",
+      "social_gathering",
+      "achievement_scene"
+    ]
+  },
+  "sad": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "blue",
+          "dark_blue",
+          "gray"
+        ],
+        "brightness": "low",
+        "saturation": "low"
+      },
+      {
+        "dominant_colors": [
+          "black",
+          "dark_gray",
+          "muted_blue"
+        ],
+        "brightness": "very_low",
+        "saturation": "very_low"
+      },
+      {
+        "dominant_colors": [
+          "brown",
+          "dark_brown"
+        ],
+        "brightness": "low",
+        "saturation": "low"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        0,
+        120
+      ],
+      "saturation_range": [
+        0.0,
+        0.3
+      ],
+      "contrast_range": [
+        0.3,
+        1.0
+      ],
+      "edge_intensity_range": [
+        0,
+        40
+      ],
+      "texture_variance_range": [
+        0,
+        1500
+      ]
+    },
+    "facial_indicators": [
+      "downward_mouth",
+      "drooping_eyes",
+      "tears_detected",
+      "slumped_posture"
+    ],
+    "scene_contexts": [
+      "rainy_weather",
+      "indoor_dim",
+      "empty_spaces",
+      "farewell_scene",
+      "loss_context"
+    ]
+  },
+  "angry": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "red",
+          "dark_red",
+          "orange_red"
+        ],
+        "brightness": "medium",
+        "saturation": "very_high"
+      },
+      {
+        "dominant_colors": [
+          "black",
+          "red",
+          "yellow"
+        ],
+        "brightness": "medium_high",
+        "saturation": "high"
+      },
+      {
+        "dominant_colors": [
+          "maroon",
+          "crimson"
+        ],
+        "brightness": "medium",
+        "saturation": "high"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        100,
+        200
+      ],
+      "saturation_range": [
+        0.6,
+        1.0
+      ],
+      "contrast_range": [
+        1.5,
+        2.5
+      ],
+      "edge_intensity_range": [
+        60,
+        120
+      ],
+      "texture_variance_range": [
+        2000,
+        6000
+      ]
+    },
+    "facial_indicators": [
+      "furrowed_brow",
+      "clenched_jaw",
+      "intense_stare",
+      "tense_features"
+    ],
+    "scene_contexts": [
+      "confrontation",
+      "protest_scene",
+      "aggressive_posture",
+      "conflict_situation"
+    ]
+  },
+  "fear": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "black",
+          "dark_gray",
+          "dark_blue"
+        ],
+        "brightness": "very_low",
+        "saturation": "low"
+      },
+      {
+        "dominant_colors": [
+          "purple",
+          "dark_purple",
+          "navy"
+        ],
+        "brightness": "low",
+        "saturation": "medium"
+      },
+      {
+        "dominant_colors": [
+          "dark_green",
+          "black_green"
+        ],
+        "brightness": "low",
+        "saturation": "low"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        0,
+        100
+      ],
+      "saturation_range": [
+        0.0,
+        0.4
+      ],
+      "contrast_range": [
+        0.8,
+        1.5
+      ],
+      "edge_intensity_range": [
+        50,
+        100
+      ],
+      "texture_variance_range": [
+        1500,
+        4000
+      ]
+    },
+    "facial_indicators": [
+      "wide_eyes",
+      "open_mouth",
+      "raised_eyebrows",
+      "tense_posture"
+    ],
+    "scene_contexts": [
+      "dark_environment",
+      "threatening_situation",
+      "horror_context",
+      "danger_signs"
+    ]
+  },
+  "surprise": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "bright_white",
+          "yellow",
+          "light_colors"
+        ],
+        "brightness": "very_high",
+        "saturation": "medium"
+      },
+      {
+        "dominant_colors": [
+          "electric_blue",
+          "bright_green"
+        ],
+        "brightness": "high",
+        "saturation": "high"
+      },
+      {
+        "dominant_colors": [
+          "vivid_colors",
+          "contrasting_colors"
+        ],
+        "brightness": "high",
+        "saturation": "very_high"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        160,
+        255
+      ],
+      "saturation_range": [
+        0.5,
+        1.0
+      ],
+      "contrast_range": [
+        1.8,
+        3.0
+      ],
+      "edge_intensity_range": [
+        70,
+        150
+      ],
+      "texture_variance_range": [
+        3000,
+        8000
+      ]
+    },
+    "facial_indicators": [
+      "wide_eyes",
+      "raised_eyebrows",
+      "open_mouth",
+      "alert_posture"
+    ],
+    "scene_contexts": [
+      "unexpected_event",
+      "revelation_moment",
+      "shocking_news",
+      "sudden_appearance"
+    ]
+  },
+  "love": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "pink",
+          "rose",
+          "soft_red"
+        ],
+        "brightness": "high",
+        "saturation": "medium_high"
+      },
+      {
+        "dominant_colors": [
+          "warm_colors",
+          "golden",
+          "sunset_colors"
+        ],
+        "brightness": "medium_high",
+        "saturation": "medium"
+      },
+      {
+        "dominant_colors": [
+          "lavender",
+          "soft_purple",
+          "romantic_colors"
+        ],
+        "brightness": "medium_high",
+        "saturation": "medium"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        140,
+        220
+      ],
+      "saturation_range": [
+        0.5,
+        0.8
+      ],
+      "contrast_range": [
+        1.1,
+        1.8
+      ],
+      "edge_intensity_range": [
+        20,
+        60
+      ],
+      "texture_variance_range": [
+        800,
+        2500
+      ],
+      "harmony_score_range": [
+        0.7,
+        1.0
+      ]
+    },
+    "facial_indicators": [
+      "gentle_smile",
+      "soft_eyes",
+      "relaxed_features",
+      "warm_expression"
+    ],
+    "scene_contexts": [
+      "romantic_setting",
+      "couple_together",
+      "intimate_moment",
+      "caring_gesture"
+    ]
+  },
+  "excitement": {
+    "color_profiles": [
+      {
+        "dominant_colors": [
+          "bright_colors",
+          "neon_colors"
+        ],
+        "brightness": "very_high",
+        "saturation": "very_high"
+      },
+      {
+        "dominant_colors": [
+          "electric_colors",
+          "vivid_rainbow"
+        ],
+        "brightness": "high",
+        "saturation": "maximum"
+      },
+      {
+        "dominant_colors": [
+          "energetic_colors",
+          "dynamic_palette"
+        ],
+        "brightness": "high",
+        "saturation": "very_high"
+      }
+    ],
+    "visual_features": {
+      "brightness_range": [
+        170,
+        255
+      ],
+      "saturation_range": [
+        0.7,
+        1.0
+      ],
+      "contrast_range": [
+        1.6,
+        2.8
+      ],
+      "edge_intensity_range": [
+        60,
+        140
+      ],
+      "texture_variance_range": [
+        2500,
+        7000
+      ]
+    },
+    "facial_indicators": [
+      "animated_expression",
+      "bright_eyes",
+      "energetic_posture",
+      "dynamic_movement"
+    ],
+    "scene_contexts": [
+      "celebration",
+      "party_atmosphere",
+      "sports_event",
+      "achievement_moment",
+      "festival"
+    ]
+  }
+}
