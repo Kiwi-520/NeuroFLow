@@ -1,0 +1,13 @@
+nohup: ignoring input
+
+> neuroflow-client@1.0.0 dev
+> vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  VITE v5.4.20  ready in 482 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://10.0.2.120:3000/
+9:12:29 AM [vite] hmr update /src/pages/EmotionAnalysis.tsx, /src/index.css
+9:12:37 AM [vite] hmr update /src/pages/EmotionAnalysis.tsx, /src/index.css
