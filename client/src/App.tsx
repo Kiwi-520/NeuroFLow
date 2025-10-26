@@ -5,6 +5,7 @@ import { WorkingThemeProvider } from './providers/WorkingThemeProvider';
 import { Layout } from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
+import EmotionAnalysis from './pages/EmotionAnalysis';
 import Insights from './pages/Insights';
 import Settings from './pages/Settings';
 import Welcome from './pages/Welcome';
@@ -12,8 +13,8 @@ import './styles/theme.css';
 
 function App() {
   useEffect(() => {
-    // Register service worker for PWA functionality
-    if ('serviceWorker' in navigator) {
+    // Register service worker for PWA functionality (only in production)
+    if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
           console.log('SW registered: ', registration);
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/tasks" element={<Tasks />} />
+                <Route path="/emotions" element={<EmotionAnalysis />} />
                 <Route path="/insights" element={<Insights />} />
                 <Route path="/settings" element={<Settings />} />
               </Routes>

@@ -24,6 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navItems = [
     { icon: Home, label: 'Dashboard', path: '/dashboard' },
     { icon: CheckSquare, label: 'Tasks', path: '/tasks' },
+    { icon: Heart, label: 'Emotions', path: '/emotions' },
     { icon: BarChart3, label: 'Insights', path: '/insights' },
     { icon: Settings, label: 'Customize UI', path: '/settings' },
   ];
